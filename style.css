@@ -547,28 +547,35 @@ details.sketch-details summary::-webkit-details-marker {
   }
 }
 
-/* スマホ表示の調整 */
+/* --- スマホ画面のレスポンシブ最適化 --- */
 @media (max-width: 520px) {
   .main-title {
     font-size: 1.15rem;
     padding: 5px 14px;
   }
   
-  /* 鍵垢アコーディオンを1行に収める */
   details.sketch-details summary {
     font-size: 0.95rem;
     padding: 12px 14px;
   }
-
+  
+  /* 旦那さまメッセージ：アバターは中央、吹き出しの中身は左揃え！ */
   .partner-msg-container {
     flex-direction: column;
-    text-align: center;
+    align-items: center;                   /* アバターを中央に */
     gap: 12px;
   }
+
   .partner-msg-avatar {
     width: 105px;
   }
-  /* スマホでは尻尾を上向きにする */
+
+  .speech-bubble {
+    text-align: left;                      /* ←吹き出しの中身をスッキリ左揃えに！ */
+    width: 100%;
+  }
+
+  /* 吹き出しの三角の尻尾を上向きにする */
   .speech-bubble::before {
     left: 50%;
     top: -9px;
