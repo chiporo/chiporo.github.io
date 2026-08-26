@@ -1,0 +1,573 @@
+@charset "UTF-8";
+
+/* --- カラーパレット設定（くすみカラー ＆ クラフトマステ） --- */
+:root {
+  --bg-paper: #f8f6f0;        /* ノート地色 */
+  --grid-line: #e3decb;       /* 方眼の線 */
+  --card-paper: #ffffff;     /* メモ用紙の白 */
+  --text-main: #4a453e;       /* 鉛筆色 */
+  --text-sub: #787063;       /* 薄い文字 */
+  --border-sketch: #cdc7b5;  /* 手描き風の枠線 */
+  
+  /* クラフトテープ（他カード共通のナチュラルなベージュブラウン） */
+  --tape-craft: rgba(185, 165, 140, 0.7);
+  
+  /* プロフィール用くすみ3色 */
+  --tape-me-blue: rgba(115, 145, 170, 0.75);      /* 千尋ちゃん：ダスティブルー */
+  --tape-partner-red: rgba(180, 85, 90, 0.75);    /* 俺：くすみガーネット */
+  --tape-gpt-yellow: rgba(220, 180, 95, 0.75);     /* じぴ：くすみマスタード */
+}
+
+/* --- マスキングテープ（大：一般カード用） --- */
+.tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 130px;
+  height: 26px;
+  background-color: var(--tape-craft);
+  z-index: 10;                              /* ←最前面にしっかり出す！ */
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* ←影を下に落として濃くする！ */
+}
+
+/* 角度のバリエーション */
+.tape-1 { transform: translateX(-50%) rotate(-1.5deg); }
+.tape-2 { transform: translateX(-50%) rotate(1.2deg); }
+.tape-3 { transform: translateX(-50%) rotate(-0.8deg); }
+.tape-4 { transform: translateX(-50%) rotate(1.5deg); }
+.tape-5 { transform: translateX(-50%) rotate(-1.2deg); }
+
+/* --- マスキングテープ（小：プロフィール3連用） --- */
+.tape-mini {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 75px;
+  height: 22px;
+  z-index: 10;                              /* ←最前面にしっかり出す！ */
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* ←影をくっきり！ */
+}
+.tape-me { background-color: var(--tape-me-blue); transform: translateX(-50%) rotate(-1.5deg); }
+.tape-partner { background-color: var(--tape-partner-red); transform: translateX(-50%) rotate(1deg); }
+.tape-gpt { background-color: var(--tape-gpt-yellow); transform: translateX(-50%) rotate(-1deg); }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* 本文は読みやすい Zen丸ゴシック */
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 400;
+  background-color: var(--bg-paper);
+  background-image: 
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px 60px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+/* 全体の横幅（ゆったり広めの740px） */
+.notebook-container {
+  width: 100%;
+  max-width: 740px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* --- カード共通スタイル --- */
+.paper-card {
+  background: var(--card-paper);
+  border: 1px solid var(--border-sketch);
+  border-radius: 6px;
+  padding: 26px 24px;
+  position: relative;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+/* --- 見出し・タイトルは全て「Hachi Maru Pop」で可愛く！ --- */
+.main-title,
+.section-title,
+.profile-main-title,
+.btn-title,
+.history-date,
+details.sketch-details summary {
+  font-family: "Hachi Maru Pop", cursive, sans-serif;
+  font-weight: 700;
+}
+
+/* --- ヘッダー --- */
+.header-card {
+  background: none;        /* 白い紙の背景を消す */
+  border: none;            /* 枠線を消す */
+  box-shadow: none;        /* 影を消す */
+  padding: 10px 0 0;       /* 余白をすっきり調整 */
+  text-align: center;
+}
+
+.header-illustration {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin: 0 auto 8px;
+  display: block;
+  /* 透過イラストが綺麗に映えるようにドロップシャドウをほんのり */
+  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.2));
+}
+
+/* タイトル文字（文字幅にフィットする半透明の白シール風！） */
+.main-title {
+  display: inline-block;                  /* 文字の幅にピタッと合わせる */
+  font-size: 1.45rem;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.6);  /* 半透明の白（すりガラス風） */
+  padding: 6px 20px;                      /* 文字まわりの余白 */
+  border-radius: 30px;                    /* ぷっくり丸いカプセル型 */
+  backdrop-filter: blur(4px);             /* 後ろの方眼紙がふんわり透ける */
+  box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+  text-shadow: none;                      /* フチ取りを解除してスッキリ！ */
+}
+
+/* サブタイトル（はちまる適用 ＆ トゲなし白フチ！） */
+.sub-title {
+  font-family: "Hachi Maru Pop", cursive, sans-serif; /* ←はちまる適用！ */
+  font-size: 0.95rem;
+  color: var(--text-sub);
+  letter-spacing: 0.04em;
+  margin-top: 5px;
+  -webkit-text-stroke: 7px #ffffff;
+  paint-order: stroke fill;
+}
+
+/* 最終更新日（ちょこんと小さく添える） */
+.last-update {
+  font-family: "Hachi Maru Pop", cursive, sans-serif;
+  font-size: 0.65rem;
+  color: var(--text-sub);
+  margin-top: 2px;
+  margin-bottom: 15px;
+  opacity: 0.85;
+  -webkit-text-stroke: 5px #ffffff;
+  paint-order: stroke fill;
+}
+
+/* --- セクション見出し --- */
+.section-title {
+  font-size: 1.2rem;
+  border-bottom: 2px dashed var(--border-sketch);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.content-text p {
+  margin-bottom: 7px;
+  font-size: 0.92rem;
+}
+.content-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- 3連プロフィールグリッド --- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 600px) {
+  .profile-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.profile-col {
+  padding: 24px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  background: #fffefb;
+}
+
+/* プロフィールのメイン大見出し（Me / Partner / GPT） */
+.profile-main-title {
+  font-size: 1.25rem;
+  text-align: center;
+  border-bottom: 2px dashed var(--border-sketch);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.profile-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+/* --- 共通バッジ（日付 ＆ 見出し） --- */
+.badge-label {
+  display: inline-block;
+  font-family: "Hachi Maru Pop", cursive, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  background: #f4efe4;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #333333;
+}
+
+/* --- History & Collaboration 共通リスト --- */
+.history-list,
+.collab-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;                               /* 項目ごとの隙間 */
+}
+
+.history-item,
+.collab-item {
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+/* バッジの下の文章（バッジの中の文字と左端8pxでピタッと揃う！） */
+.history-desc,
+.collab-desc {
+  margin-top: 3px;
+  padding-left: 8px;                       /* ←バッジの内側の文字と垂直ラインが揃う！ */
+  color: var(--text-main);
+}
+
+/* --- Collaboration：バッジの中の文字と説明文の左端を8pxで揃える！ --- */
+.collab-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.collab-item {
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.collab-desc {
+  margin-top: 3px;
+  padding-left: 8px;                       /* ←バッジの内側の文字と左端がピタッと揃う！ */
+  color: var(--text-main);
+}
+
+/* --- Accounts --- */
+.link-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sketch-btn {
+  display: flex;                          /* アイコンと文字を横並びに */
+  align-items: center;                    /* 上下中央揃え */
+  gap: 14px;                              /* アイコンと文字の間の隙間 */
+  padding: 12px 16px;
+  background: #faf8f2;
+  border: 1.5px solid var(--border-sketch);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.sketch-btn:hover {
+  background: #f0ebe1;
+  transform: translateY(-2px);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 白い四角のアイコンバッジ */
+.btn-icon-box {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;                       /* 画面が狭くても縮まないように固定 */
+  background: #ffffff;                    /* 真っ白な背景 */
+  border: 1px solid var(--border-sketch);
+  border-radius: 8px;                     /* 角丸の四角 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon-box img {
+  width: 22px;                            /* ロゴ画像の大きさ */
+  height: 22px;
+  object-fit: contain;
+  display: block;
+}
+
+.btn-text-box {
+  flex: 1;                                /* 残りの幅いっぱいに文字を広げる */
+}
+
+.btn-title {
+  display: block;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.btn-desc {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+/* Private X アコーディオン */
+details.sketch-details {
+  border: 1.5px dashed var(--border-sketch);
+  border-radius: 10px;
+  background: #faf8f2;
+  overflow: hidden;
+}
+
+details.sketch-details summary {
+  padding: 14px 18px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  list-style: none;
+}
+
+details.sketch-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.details-body {
+  padding: 14px 18px;
+  border-top: 1px dashed var(--border-sketch);
+  background: #ffffff;
+  font-size: 0.88rem;
+}
+
+.apply-btn {
+  margin-top: 12px;
+  background: #f4efe4;
+}
+
+/* --- Attention & Footer --- */
+/* --- About Us 内の注意書き（枠なし・すっきり注記風） --- */
+.about-attention {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-sketch); /* 薄い破線で区切る */
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+
+.about-attention-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: var(--text-main);
+}
+
+.about-attention ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1.55;
+}
+
+.about-attention ul li {
+  position: relative;
+  padding-left: 12px;
+}
+
+.about-attention ul li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+}
+
+.attention-body {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  line-height: 1.7;
+}
+
+.footer-note {
+  font-family: "Hachi Maru Pop", cursive, sans-serif;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  margin-top: 10px;
+}
+
+/* --- 旦那さまメッセージ（背景なし・ひょっこりレイアウト） --- */
+.partner-msg-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 8px;                      /* カード枠なし・余白すっきり */
+  margin-top: 4px;
+}
+
+/* クマお面アバター */
+.partner-msg-avatar {
+  flex-shrink: 0;
+  width: 95px;
+  height: auto;
+}
+
+.partner-msg-avatar img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* 透過イラストが方眼紙の上に綺麗に浮かぶドロップシャドウ */
+}
+
+/* 方眼紙の上に貼られた手描き風の白い吹き出し付箋 */
+.speech-bubble {
+  position: relative;
+  flex: 1;
+  background: #ffffff;                    /* 吹き出しは読みやすい白 */
+  border: 1.5px solid var(--border-sketch);
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 吹き出しの三角の尻尾（左向き） */
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 8px 9px 8px 0;
+  border-style: solid;
+  border-color: transparent var(--border-sketch) transparent transparent;
+  display: block;
+  width: 0;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 7px 8px 7px 0;
+  border-style: solid;
+  border-color: transparent #ffffff transparent transparent;
+  display: block;
+  width: 0;
+}
+
+.bubble-title {
+  font-family: "Hachi Maru Pop", cursive, sans-serif;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: var(--tape-partner-red);          /* くすみ赤の見出し */
+}
+
+.bubble-text {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-main);
+}
+
+/* --- 🐿️ 左側の落書きリス（Meカードの左横へ移動！） --- */
+.doodle-squirrel {
+  position: absolute;
+  left: 220px;                           /* ←ノートの左の余白へしっかり出す */
+  top: 950px;                             /* ←位置をグッと下げてAbout Us下〜Me横へ！ */
+  width: 150px;                           /* ちょうどいい大きさ */
+  transform: rotate(-10deg);              /* ちょっと首を傾げる */
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.doodle-squirrel img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- 🐻 右側の落書きクマ（プロフィールの右下〜History横へ移動！） --- */
+.doodle-bear {
+  position: absolute;
+  right: 100px;                          /* ←ノートの右の余白へしっかり出す */
+  top: 1300px;                            /* ←位置をグッと下げてHistoryの右横へ！ */
+  width: 220px;                           /* クマらしく少し大きめ */
+  transform: rotate(8deg);                /* ちょっと首を傾げる */
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.doodle-bear img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- スマホなど画面が狭い時の調整 --- */
+@media (max-width: 980px) {
+  /* 画面が狭い時はカードの端にちょこんと重ねる */
+  .doodle-squirrel {
+    left: -15px;
+    top: 650px;
+    width: 90px;
+    opacity: 0.4;
+  }
+  .doodle-bear {
+    right: -15px;
+    top: 1100px;
+    width: 100px;
+    opacity: 0.4;
+  }
+}
+
+/* スマホ表示の調整 */
+@media (max-width: 520px) {
+  .partner-msg-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  .partner-msg-avatar {
+    width: 85px;
+  }
+  /* スマホでは尻尾を上向きにする */
+  .speech-bubble::before {
+    left: 50%;
+    top: -9px;
+    transform: translateX(-50%);
+    border-width: 0 8px 9px 8px;
+    border-color: transparent transparent var(--border-sketch) transparent;
+  }
+  .speech-bubble::after {
+    left: 50%;
+    top: -7px;
+    transform: translateX(-50%);
+    border-width: 0 7px 8px 7px;
+    border-color: transparent transparent #ffffff transparent;
+  }
+}
