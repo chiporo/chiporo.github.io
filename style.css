@@ -135,13 +135,14 @@ details.sketch-details summary {
   font-size: 1.45rem;
   letter-spacing: 0.05em;
   color: var(--text-main);
-  background: rgba(255, 255, 255, 0.6);  /* 半透明の白（すりガラス風） */
+  background: rgba(255, 255, 255, 0.7);  /* 半透明の白（すりガラス風） */
   padding: 6px 20px;                      /* 文字まわりの余白 */
   border-radius: 30px;                    /* ぷっくり丸いカプセル型 */
   backdrop-filter: blur(4px);             /* 後ろの方眼紙がふんわり透ける */
   box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 5px;
   text-shadow: none;                      /* フチ取りを解除してスッキリ！ */
+  white-space: nowrap;
 }
 
 /* サブタイトル（はちまる適用 ＆ トゲなし白フチ！） */
@@ -282,7 +283,7 @@ details.sketch-details summary {
 
 .sketch-btn {
   display: flex;                          /* アイコンと文字を横並びに */
-  align-items: center;                    /* 上下中央揃え */
+  align-items: flex-start;                    /* 上下中央揃え */
   gap: 14px;                              /* アイコンと文字の間の隙間 */
   padding: 12px 16px;
   background: #faf8f2;
@@ -310,6 +311,7 @@ details.sketch-details summary {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 2px;
 }
 
 .btn-icon-box img {
@@ -430,7 +432,7 @@ details.sketch-details summary::-webkit-details-marker {
 /* クマお面アバター */
 .partner-msg-avatar {
   flex-shrink: 0;
-  width: 95px;
+  width: 115px;
   height: auto;
 }
 
@@ -547,13 +549,24 @@ details.sketch-details summary::-webkit-details-marker {
 
 /* スマホ表示の調整 */
 @media (max-width: 520px) {
+  .main-title {
+    font-size: 1.15rem;
+    padding: 5px 14px;
+  }
+  
+  /* 鍵垢アコーディオンを1行に収める */
+  details.sketch-details summary {
+    font-size: 0.95rem;
+    padding: 12px 14px;
+  }
+
   .partner-msg-container {
     flex-direction: column;
     text-align: center;
     gap: 12px;
   }
   .partner-msg-avatar {
-    width: 85px;
+    width: 105px;
   }
   /* スマホでは尻尾を上向きにする */
   .speech-bubble::before {
