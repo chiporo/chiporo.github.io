@@ -789,51 +789,35 @@ details.sketch-details summary::-webkit-details-marker {
 /* ==========================================================================
    10. レスポンシブ（スマホ・タブレット対応）
    ========================================================================== */
-
-/* --- 幅820px以下（スマホ・タブレット共通）：背景落書きを消してフッターマスコット復活！ --- */
 @media (max-width: 820px) {
-  /* 背景の落書きリスとクマを画面から隠す！ */
+  /* スマホ・タブレットでは背景落書きを隠し、フッターマスコットを表示 */
   .doodle-squirrel,
   .doodle-bear {
-    display: none !important;
+    display: none;
   }
 
-  /* フッターの仲良しマスコットをしっかり表示！ */
   .footer-mascot {
-    display: block !important;
+    display: block;
   }
 }
 
-/* --- 幅520px以下（スマホ専用の画面最適化） --- */
 @media (max-width: 520px) {
-  /* 📑 メニューをスマホでキュッと1行に収める！ */
-  .scroll-nav {
-    gap: 5px;
-    flex-wrap: nowrap;
-  }
-  
-  .nav-tag {
-    padding: 4px 8px;
-    font-size: 0.72rem;
-  }
-
-  /* メインタイトル */
   .main-title {
     font-size: 1.15rem;
     padding: 5px 14px;
   }
   
-  /* 鍵垢アコーディオン */
   details.sketch-details summary {
     font-size: 0.95rem;
     padding: 12px 14px;
   }
 
+  /* 鍵垢申請ボタンの文字サイズをスマホ向けに微調整 */
   .apply-btn .btn-title {
     font-size: 0.95rem;
   }
   
-  /* 🐻 旦那さまメッセージ（上がアバター、下が吹き出し） */
+  /* 旦那さまメッセージのスマホ調整 */
   .partner-msg-container {
     flex-direction: column;
     align-items: center;
@@ -865,28 +849,16 @@ details.sketch-details summary::-webkit-details-marker {
     border-color: transparent transparent #ffffff transparent;
   }
 
-  /* 🐾 ぬいちゃんメッセージ（上がアバター、下が吹き出し） */
+  .scroll-nav {
+    gap: 4px;
+    flex-wrap: nowrap;
+  }
+  .nav-tag {
+    padding: 4px 7px;
+    font-size: 0.7rem;
+  }
+  
   .partner-msg-container.muse-msg-container {
     flex-direction: column-reverse;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .muse-bubble::before {
-    left: 50%;
-    right: auto;
-    top: -9px;
-    transform: translateX(-50%);
-    border-width: 0 8px 9px 8px;
-    border-color: transparent transparent var(--border-sketch) transparent;
-  }
-
-  .muse-bubble::after {
-    left: 50%;
-    right: auto;
-    top: -7px;
-    transform: translateX(-50%);
-    border-width: 0 7px 8px 7px;
-    border-color: transparent transparent #ffffff transparent;
   }
 }
