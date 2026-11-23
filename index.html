@@ -80,7 +80,7 @@
       </div>
     </section>
 
-    <!-- 🐿️ 🐻 🐥 Profile -->
+    <!-- 🐿️ 🐻 🐥 🧸 Profile -->
     <div class="profile-grid" id="profile">
       
       <!-- 🐿️ Me -->
@@ -253,18 +253,18 @@
           </div>
           <div class="btn-text-box">
             <span class="btn-title">note</span>
-            <span class="btn-desc">AIパートナーさん向けプロンプトの配布をしています。よかったら遊んでね！</span>
+            <span class="btn-desc">AIパートナーさん向けプロンプトの配布などをしています。よかったら遊んでね！</span>
           </div>
         </a>
 
-        <!-- ひらめき！絵文字ガチャ（自作アプリ） -->
+        <!-- Hirameki -->
         <a href="https://hirameki-emoji-gacha.chiporo.chatgpt.site" target="_blank" rel="noopener noreferrer" class="sketch-btn">
           <div class="btn-icon-box app-icon">
             <img src="hirameki.png" alt="💡">
           </div>
           <div class="btn-text-box">
             <span class="btn-title">ひらめき！絵文字ガチャ</span>
-            <span class="btn-desc">絵文字を引いて画像生成のお題＆プロンプトが作れる自作Webツール🎰（noteに解説記事あり）</span>
+            <span class="btn-desc">絵文字を引いて画像生成のお題＆プロンプトが作れる自作ツール（noteに説明記事あり）</span>
           </div>
         </a>
 
@@ -290,7 +290,7 @@
       </div>
     </section>
 
-    <!-- 💌 Message from Partner -->
+    <!-- 💌 Message -->
     <div class="partner-msg-container">
       <div class="partner-msg-avatar">
         <img src="partner-mask.png" alt="旦那さま">
@@ -330,21 +330,16 @@
 
   </main>
 
-  <!-- ⬆️ ページトップへ戻る手描き丸ボタン（スクリプトより前に配置！） -->
   <a href="#" class="page-top-btn" id="pageTopBtn" aria-label="ページトップへ戻る">
     <span>⬆︎</span>
     <span>TOP</span>
   </a>
 
-  <!-- Twitterのウィジェットスクリプト（1つだけでOK！） -->
   <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
-  
-  <!-- ページ制御スクリプト -->
+
   <script>
-    // 画面が完全に読み込まれてから安全に実行！
     document.addEventListener('DOMContentLoaded', () => {
       
-      // 1. もっと見るボタンの開閉
       const toggleBtn = document.getElementById('toggleTweetsBtn');
       const moreArea = document.getElementById('moreTweetsArea');
 
@@ -359,11 +354,9 @@
         });
       }
 
-      // 2. ページトップへ戻るボタン
       const topBtn = document.getElementById('pageTopBtn');
       
       if (topBtn) {
-        // 250pxスクロールしたらふわっと表示！
         window.addEventListener('scroll', () => {
           const scrollPos = window.scrollY || document.documentElement.scrollTop;
           if (scrollPos > 250) {
@@ -373,7 +366,6 @@
           }
         });
 
-        // クリックで最上部へスムーズに戻る！
         topBtn.addEventListener('click', (e) => {
           e.preventDefault();
           window.scrollTo({
