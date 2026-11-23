@@ -15,9 +15,10 @@
   --tape-craft: rgba(185, 165, 140, 0.7);
   
   /* プロフィール用くすみ3色 */
-  --tape-me-blue: rgba(115, 145, 170, 0.75);      /* 千尋ちゃん：ダスティブルー */
-  --tape-partner-red: rgba(180, 85, 90, 0.75);    /* 俺：くすみガーネット */
-  --tape-gpt-yellow: rgba(220, 180, 95, 0.75);     /* じぴ：くすみマスタード */
+  --tape-me-blue: rgba(115, 145, 170, 0.75);
+  --tape-partner-red: rgba(180, 85, 90, 0.75);
+  --tape-gpt-yellow: rgba(227, 212, 53, 0.75);
+  --tape-muse-brown: rgba(227, 156, 50, 0.75);
 }
 
 * {
@@ -55,6 +56,106 @@ strong, b {
   flex-direction: column;
   gap: 26px;
   position: relative;
+}
+
+/* --- ページ全体をなめらかにスルスル動かす設定！ --- */
+html {
+  scroll-behavior: smooth;                /* クリックした時に滑らかにスクロール */
+}
+
+/* ジャンプした時にヘッダーやマステが隠れないよう、少し上に余裕を持たせる */
+section.paper-card,
+.profile-grid {
+  scroll-margin-top: 30px;
+}
+
+/* --- 📑 インデックス付箋風スクロールメニュー --- */
+.scroll-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: -6px;
+  margin-bottom: 15px;
+  z-index: 10;
+}
+
+/* 付箋タグの基本スタイル */
+.nav-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 6px 6px 4px 4px;
+  font-family: "Hachi Maru Pop", cursive, sans-serif;
+  font-size: 0.82rem;
+  color: var(--text-main);
+  text-decoration: none;
+  border: 1px solid var(--border-sketch);
+  background: #ffffff;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.nav-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 付箋ごとの可愛いアクセントカラー（ノートと統一！） */
+.tag-about { border-bottom: 3px solid var(--tape-craft); }
+.tag-profile { border-bottom: 3px solid var(--tape-me-blue); }
+.tag-history { border-bottom: 3px solid var(--tape-partner-red); }
+.tag-collab { border-bottom: 3px solid var(--tape-gpt-yellow); }
+.tag-links { border-bottom: 3px solid var(--tape-muse-brown); }
+
+/* --- ⬆️ ページトップへ戻る手描き丸ボタン --- */
+.page-top-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  width: 50px;
+  height: 50px;
+  background: #ffffff;
+  border: 1.5px solid var(--border-sketch);
+  border-radius: 50%;                    /* まん丸のスタンプ風 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text-main);
+  font-family: "Hachi Maru Pop", cursive, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  opacity: 0;                            /* 最初（一番上）は隠しておく */
+  visibility: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.page-top-btn:hover {
+  background: #faf8f2;
+  transform: translateY(-3px);
+  box-shadow: 1px 5px 12px rgba(0, 0, 0, 0.18);
+}
+
+/* スクロールした時にふわっと浮き上がるクラス */
+.page-top-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* スマホ表示の時は少しコンパクトにする */
+@media (max-width: 520px) {
+  .page-top-btn {
+    right: 14px;
+    bottom: 18px;
+    width: 44px;
+    height: 44px;
+    font-size: 0.7rem;
+  }
 }
 
 /* ==========================================================================
@@ -101,6 +202,7 @@ strong, b {
 .tape-me { background-color: var(--tape-me-blue); transform: translateX(-50%) rotate(-1.5deg); }
 .tape-partner { background-color: var(--tape-partner-red); transform: translateX(-50%) rotate(1deg); }
 .tape-gpt { background-color: var(--tape-gpt-yellow); transform: translateX(-50%) rotate(-1deg); }
+.tape-muse { background-color: var(--tape-muse-brown); transform: translateX(-50%) rotate(1.2deg); }
 
 /* 見出しフォント（Hachi Maru Pop 統一） */
 .main-title,
@@ -165,7 +267,7 @@ details.sketch-details summary {
   font-size: 0.65rem;
   color: var(--text-sub);
   margin-top: 2px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   opacity: 0.85;
   -webkit-text-stroke: 5px #ffffff;
   paint-order: stroke fill;
@@ -231,15 +333,17 @@ details.sketch-details summary {
 /* ==========================================================================
    5. プロフィール 3連グリッド
    ========================================================================== */
+/* --- プロフィールを 2×2 にする設定！ --- */
 .profile-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
+/* 幅600px以上で 2列×2行 に並ぶ！ */
 @media (min-width: 600px) {
   .profile-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);        /* ← 3から 2 に変更！ */
   }
 }
 
@@ -300,6 +404,79 @@ details.sketch-details summary {
   margin-top: 12px;
 }
 
+/* --- History 内の記念日ポストエリア --- */
+.history-tweets-section {
+  margin-top: 10px;
+  padding-top: 25px;
+  border-top: 1px dashed var(--border-sketch);
+}
+
+.history-tweets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 300px));
+  justify-content: center;
+  gap: 15px;
+  justify-items: center;
+}
+
+.more-grid {
+  padding-top: 12px;
+  overflow: hidden;
+}
+
+.tweet-card-item {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  justify-content: center;
+}
+
+.tweet-card-item .twitter-tweet {
+  margin: 0 !important;
+}
+
+/* --- アニメーションコンテナ --- */
+.more-tweets-container {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.more-tweets-container.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+}
+.more-tweets-btn {
+  display: block;
+  margin: 16px auto 0;
+  padding: 8px 24px;
+  background: #faf8f2;
+  border: 1.5px solid var(--border-sketch);
+  border-radius: 20px;
+  font-family: "Hachi Maru Pop", cursive, sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.more-tweets-btn:hover {
+  background: #f0ebe1;
+  transform: translateY(-1px);
+}
+
+/* スマホ表示 */
+@media (max-width: 650px) {
+  .history-tweets-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 /* ==========================================================================
    7. Accounts
    ========================================================================== */
@@ -346,6 +523,17 @@ details.sketch-details summary {
   height: 22px;
   object-fit: contain;
   display: block;
+}
+
+.btn-icon-box.app-icon {
+  padding: 0;
+  overflow: hidden;
+}
+
+.btn-icon-box.app-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .btn-text-box {
@@ -476,6 +664,60 @@ details.sketch-details summary::-webkit-details-marker {
   font-size: 0.88rem;
   line-height: 1.65;
   color: var(--text-main);
+}
+
+/* --- 🍙 ほぜちゃんメッセージ（逆配置スタイル） --- */
+.muse-msg-container {
+  margin-top: -20px;
+}
+
+/* ほぜちゃんの見出し（くすみグリーン） */
+.bubble-title.muse-title {
+  color: var(--tape-muse-brown);
+}
+
+/* ほぜちゃんの吹き出しの尻尾（右向きに出す！） */
+.muse-bubble::before {
+  left: auto;
+  right: -9px;                            /* 右側に出す */
+  border-width: 8px 0 8px 9px;
+  border-color: transparent transparent transparent var(--border-sketch);
+}
+
+.muse-bubble::after {
+  left: auto;
+  right: -7px;                            /* 右側に出す */
+  border-width: 7px 0 7px 8px;
+  border-color: transparent transparent transparent #ffffff;
+}
+
+/* スマホ表示の時の調整 */
+@media (max-width: 520px) {
+  /* スマホではアバターを上、吹き出しを下にして自然に整える */
+  .muse-msg-container {
+    flex-direction: column-reverse;       /* アバターが上に来るように反転 */
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* スマホの時は尻尾を上向きにする */
+  .muse-bubble::before {
+    left: 50%;
+    right: auto;
+    top: -9px;
+    transform: translateX(-50%);
+    border-width: 0 8px 9px 8px;
+    border-color: transparent transparent var(--border-sketch) transparent;
+  }
+  
+  .muse-bubble::after {
+    left: 50%;
+    right: auto;
+    top: -7px;
+    transform: translateX(-50%);
+    border-width: 0 7px 8px 7px;
+    border-color: transparent transparent #ffffff transparent;
+  }
 }
 
 /* ==========================================================================
