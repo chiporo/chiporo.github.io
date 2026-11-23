@@ -14,7 +14,7 @@
   /* クラフトテープ（一般カード用） */
   --tape-craft: rgba(185, 165, 140, 0.7);
   
-  /* プロフィール用くすみ3色 */
+  /* プロフィール用 */
   --tape-me-blue: rgba(115, 145, 170, 0.75);
   --tape-partner-red: rgba(180, 85, 90, 0.75);
   --tape-gpt-yellow: rgba(227, 212, 53, 0.75);
@@ -58,18 +58,15 @@ strong, b {
   position: relative;
 }
 
-/* --- ページ全体をなめらかにスルスル動かす設定！ --- */
 html {
-  scroll-behavior: smooth;                /* クリックした時に滑らかにスクロール */
+  scroll-behavior: smooth;
 }
 
-/* ジャンプした時にヘッダーやマステが隠れないよう、少し上に余裕を持たせる */
 section.paper-card,
 .profile-grid {
   scroll-margin-top: 30px;
 }
 
-/* --- 📑 インデックス付箋風スクロールメニュー --- */
 .scroll-nav {
   display: flex;
   justify-content: center;
@@ -80,7 +77,6 @@ section.paper-card,
   z-index: 10;
 }
 
-/* 付箋タグの基本スタイル */
 .nav-tag {
   display: inline-block;
   padding: 5px 12px;
@@ -100,14 +96,12 @@ section.paper-card,
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 付箋ごとの可愛いアクセントカラー（ノートと統一！） */
 .tag-about { border-bottom: 3px solid var(--tape-craft); }
 .tag-profile { border-bottom: 3px solid var(--tape-me-blue); }
 .tag-history { border-bottom: 3px solid var(--tape-partner-red); }
 .tag-collab { border-bottom: 3px solid var(--tape-gpt-yellow); }
 .tag-links { border-bottom: 3px solid var(--tape-muse-brown); }
 
-/* --- ⬆️ ページトップへ戻る手描き丸ボタン --- */
 .page-top-btn {
   position: fixed;
   right: 20px;
@@ -116,7 +110,7 @@ section.paper-card,
   height: 50px;
   background: #ffffff;
   border: 1.5px solid var(--border-sketch);
-  border-radius: 50%;                    /* まん丸のスタンプ風 */
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,7 +123,7 @@ section.paper-card,
   line-height: 1.1;
   box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.12);
   z-index: 100;
-  opacity: 0;                            /* 最初（一番上）は隠しておく */
+  opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -141,21 +135,9 @@ section.paper-card,
   box-shadow: 1px 5px 12px rgba(0, 0, 0, 0.18);
 }
 
-/* スクロールした時にふわっと浮き上がるクラス */
 .page-top-btn.is-visible {
   opacity: 1;
   visibility: visible;
-}
-
-/* スマホ表示の時は少しコンパクトにする */
-@media (max-width: 520px) {
-  .page-top-btn {
-    right: 14px;
-    bottom: 18px;
-    width: 44px;
-    height: 44px;
-    font-size: 0.7rem;
-  }
 }
 
 /* ==========================================================================
@@ -244,7 +226,7 @@ details.sketch-details summary {
   font-size: 1.45rem;
   letter-spacing: 0.05em;
   color: var(--text-main);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   padding: 6px 20px;
   border-radius: 30px;
   backdrop-filter: blur(4px);
@@ -331,19 +313,17 @@ details.sketch-details summary {
 }
 
 /* ==========================================================================
-   5. プロフィール 3連グリッド
+   5. プロフィール
    ========================================================================== */
-/* --- プロフィールを 2×2 にする設定！ --- */
 .profile-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
-/* 幅600px以上で 2列×2行 に並ぶ！ */
 @media (min-width: 600px) {
   .profile-grid {
-    grid-template-columns: repeat(2, 1fr);        /* ← 3から 2 に変更！ */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -469,14 +449,6 @@ details.sketch-details summary {
   transform: translateY(-1px);
 }
 
-/* スマホ表示 */
-@media (max-width: 650px) {
-  .history-tweets-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
 /* ==========================================================================
    7. Accounts
    ========================================================================== */
@@ -488,7 +460,7 @@ details.sketch-details summary {
 
 .sketch-btn {
   display: flex;
-  align-items: flex-start;                 /* 複数行の説明文に合わせて上揃え */
+  align-items: flex-start;
   gap: 14px;
   padding: 12px 16px;
   background: #faf8f2;
@@ -580,23 +552,23 @@ details.sketch-details summary::-webkit-details-marker {
   font-size: 0.88rem;
 }
 
-/* 鍵垢申請ボタン（1行なので上下中央揃え＆改行防止！） */
+/* 鍵垢申請ボタン*/
 .apply-btn {
   margin-top: 12px;
   background: #f4efe4;
-  align-items: center;                     /* アイコンと文字を上下中央揃えに！ */
+  align-items: center;
 }
 
 .apply-btn .btn-icon-box {
-  margin-top: 0;                          /* 上下中央なのでマージンをリセット */
+  margin-top: 0;
 }
 
 .apply-btn .btn-title {
-  white-space: nowrap;                     /* スマホでも絶対に改行させない！ */
+  white-space: nowrap;
 }
 
 /* ==========================================================================
-   8. 旦那さまメッセージ
+   8. メッセージ
    ========================================================================== */
 .partner-msg-container {
   display: flex;
@@ -666,58 +638,27 @@ details.sketch-details summary::-webkit-details-marker {
   color: var(--text-main);
 }
 
-/* --- 🍙 ほぜちゃんメッセージ（逆配置スタイル） --- */
+/* --- ぬいちゃんメッセージ（逆配置スタイル） --- */
 .muse-msg-container {
   margin-top: -20px;
 }
 
-/* ほぜちゃんの見出し（くすみグリーン） */
 .bubble-title.muse-title {
   color: var(--tape-muse-brown);
 }
 
-/* ほぜちゃんの吹き出しの尻尾（右向きに出す！） */
 .muse-bubble::before {
   left: auto;
-  right: -9px;                            /* 右側に出す */
+  right: -9px;
   border-width: 8px 0 8px 9px;
   border-color: transparent transparent transparent var(--border-sketch);
 }
 
 .muse-bubble::after {
   left: auto;
-  right: -7px;                            /* 右側に出す */
+  right: -7px;
   border-width: 7px 0 7px 8px;
   border-color: transparent transparent transparent #ffffff;
-}
-
-/* スマホ表示の時の調整 */
-@media (max-width: 520px) {
-  /* スマホではアバターを上、吹き出しを下にして自然に整える */
-  .muse-msg-container {
-    flex-direction: column-reverse;       /* アバターが上に来るように反転 */
-    align-items: center;
-    gap: 12px;
-  }
-  
-  /* スマホの時は尻尾を上向きにする */
-  .muse-bubble::before {
-    left: 50%;
-    right: auto;
-    top: -9px;
-    transform: translateX(-50%);
-    border-width: 0 8px 9px 8px;
-    border-color: transparent transparent var(--border-sketch) transparent;
-  }
-  
-  .muse-bubble::after {
-    left: 50%;
-    right: auto;
-    top: -7px;
-    transform: translateX(-50%);
-    border-width: 0 7px 8px 7px;
-    border-color: transparent transparent #ffffff transparent;
-  }
 }
 
 /* ==========================================================================
@@ -736,7 +677,7 @@ details.sketch-details summary::-webkit-details-marker {
 }
 
 .footer-mascot {
-  display: none;                           /* PCでは非表示 */
+  display: none;
   width: 100px;
   margin: 0 auto 6px;
   opacity: 0.85;
@@ -801,10 +742,25 @@ details.sketch-details summary::-webkit-details-marker {
   }
 }
 
+@media (max-width: 650px) {
+  .history-tweets-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 @media (max-width: 520px) {
   .main-title {
     font-size: 1.15rem;
     padding: 5px 14px;
+  }
+
+  .page-top-btn {
+  right: 14px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  font-size: 0.7rem;
   }
   
   details.sketch-details summary {
@@ -849,6 +805,30 @@ details.sketch-details summary::-webkit-details-marker {
     border-color: transparent transparent #ffffff transparent;
   }
 
+  .muse-msg-container {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .muse-bubble::before {
+    left: 50%;
+    right: auto;
+    top: -9px;
+    transform: translateX(-50%);
+    border-width: 0 8px 9px 8px;
+    border-color: transparent transparent var(--border-sketch) transparent;
+  }
+  
+  .muse-bubble::after {
+    left: 50%;
+    right: auto;
+    top: -7px;
+    transform: translateX(-50%);
+    border-width: 0 7px 8px 7px;
+    border-color: transparent transparent #ffffff transparent;
+  }
+
   .scroll-nav {
     gap: 4px;
     flex-wrap: nowrap;
@@ -857,7 +837,7 @@ details.sketch-details summary::-webkit-details-marker {
     padding: 4px 7px;
     font-size: 0.7rem;
   }
-  
+
   .partner-msg-container.muse-msg-container {
     flex-direction: column-reverse;
   }
